@@ -15,10 +15,10 @@ Plugin template of an input binding for [Tweakpane][tweakpane].
 ```html
 <script type="module">
   import {Pane} as Tweakpane from './tweakpane.min.js';
-  import * as TweakpaneTemplatePlugin from './tweakpane-plugin-template.min.js';
+  import * as JsonPlugin from './tweakpane-plugin-template.min.js';
 
   const pane = new Pane();
-  pane.registerPlugin(TweakpaneTemplatePlugin);
+  pane.registerPlugin(JsonPlugin);
 </script>
 ```
 
@@ -26,10 +26,10 @@ Plugin template of an input binding for [Tweakpane][tweakpane].
 ### Package
 ```js
 import {Pane} from 'tweakpane';
-import * as TemplatePlugin from 'tweakpane-plugin-template';
+import * as JsonPlugin from 'tweakpane-plugin-template';
 
 const pane = new Pane();
-pane.registerPlugin(TemplatePlugin);
+pane.registerPlugin(JsonPlugin);
 ```
 
 

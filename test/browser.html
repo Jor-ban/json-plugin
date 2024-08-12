@@ -17,8 +17,6 @@
 			number: 1,
 		};
 
-		// #37383D
-
 		const pane = new Pane();
 		// Register plugin
 		pane.registerPlugin(TweakpaneTemplatePlugin);
@@ -27,7 +25,7 @@
 		pane.addBinding(params, 'prop', {
 			view: 'json',
 		}).on('change', (ev) => {
-			// console.log(ev.value);
+			console.log(ev.value);
 		});
 
 		pane.addBinding(params, 'number')

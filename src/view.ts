@@ -1,7 +1,6 @@
 import {ClassName, Value, View, ViewProps} from '@tweakpane/core';
-import {basicSetup, EditorView} from "codemirror"
-import {javascript} from "@codemirror/lang-javascript"
-import {oneDarkTheme} from '@codemirror/theme-one-dark';
+import {basicSetup, EditorView} from 'codemirror';
+import {javascript} from '@codemirror/lang-javascript';
 
 interface Config {
 	value: Value<object>;
@@ -16,6 +15,7 @@ const className = ClassName('json-editor');
 export class PluginView implements View {
 	public readonly element: HTMLElement;
 	private value_: Value<object>
+	private editor: EditorView
 
 	constructor(doc: Document, config: Config) {
 		// Create a root element for the plugin
@@ -39,14 +39,36 @@ export class PluginView implements View {
 		.cm-activeLine {
 			background: #37383D !important;
 		}
+		.ͼc {
+			color: yellow !important;
+		}
+		.ͼd {
+			color: lightblue !important;
+		}
+		.ͼe {
+			color: #f37272 !important;
+		}
 		`
 		this.element.appendChild(styles)
 
-		new EditorView({
+		this.editor = new EditorView({
 			doc: JSON.stringify(config.value.rawValue, null, 2),
-			extensions: [basicSetup, javascript()],
+			extensions: [
+				basicSetup,
+				javascript(),
+				EditorView.updateListener.of((update) => {
+					const value = update.state.doc.toString()
+					try {
+						this.value_.rawValue = JSON.parse(value)
+						this.editor.contentDOM.style.border = 'none'
+					} catch (e) {
+						this.editor.contentDOM.style.border = '2px solid red'
+					}
+				})
+			],
 			parent: this.element,
 		});
+
 		// Apply the initial value
 		this.refresh_();
 

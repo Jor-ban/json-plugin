@@ -22,7 +22,7 @@ export interface PluginInputParams extends BaseInputParams {
 // - converts `Ex` into `In` and holds it
 // - P is the type of the parsed parameters
 //
-export const TemplateInputPlugin: InputBindingPlugin<
+export const JsonPlugin: InputBindingPlugin<
 	object,
 	object,
 	PluginInputParams
@@ -68,7 +68,6 @@ export const TemplateInputPlugin: InputBindingPlugin<
 
 		writer(_args) {
 			return (target: BindingTarget, inValue) => {
-				console.log({target, inValue})
 				// Use `target.write()` to write the primitive value to the target,
 				// or `target.writeProperty()` to write a property of the target
 				target.write(inValue);
