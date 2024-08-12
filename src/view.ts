@@ -17,8 +17,12 @@ export class PluginView implements View {
 	private value_: Value<object>
 	private editor: EditorView
 	private editorInited: boolean = false
+	private onValueChangeCB: OmitThisParameter<() => void>
 
-	constructor(doc: Document, config: Config) {
+	constructor(
+		private readonly doc: Document,
+		private readonly config: Config
+	) {
 		// Create a root element for the plugin
 		this.element = doc.createElement('div');
 		this.element.classList.add(className());
@@ -28,7 +32,8 @@ export class PluginView implements View {
 		// Receive the bound value from the controller
 		this.value_ = config.value;
 		// Handle 'change' event of the value
-		this.value_.emitter.on('change', this.onValueChange_.bind(this));
+		this.onValueChangeCB = this.onValueChange_.bind(this)
+		this.value_.emitter.on('change', this.onValueChangeCB);
 
 		const styles = doc.createElement('style')
 		styles.innerHTML = `.cm-gutters {
@@ -81,9 +86,6 @@ export class PluginView implements View {
 			parent: this.element,
 		});
 
-		// Apply the initial value
-		this.refresh_();
-
 		config.viewProps.handleDispose(() => {
 			// Called when the view is disposing
 			console.log('TODO: dispose view');
@@ -105,6 +107,11 @@ export class PluginView implements View {
 
 	private onValueChange_() {
 		this.refresh_();
+	}
+
+	public dispose(): void {
+		this.value_.emitter.off('change', this.onValueChangeCB);
+		this.editor.destroy()
 	}
 
 	private stringifyRelaxedJson_(value: any): string {

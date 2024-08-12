@@ -24,8 +24,7 @@ export class PluginController implements Controller<PluginView> {
 		// and also view props
 		this.viewProps = config.viewProps;
 		this.viewProps.handleDispose(() => {
-			// Called when the controller is disposing
-			console.log('TODO: dispose controller');
+			this.view?.dispose();
 		});
 
 		// Create a custom view
