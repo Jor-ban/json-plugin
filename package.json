@@ -2,7 +2,7 @@
   "name": "tweakpane-json-plugin",
   "version": "0.0.0",
   "description": "JSON Plugin for Tweakpane",
-  "main": "dist/tweakpane-plugin-template.js",
+  "main": "dist/tweakpane-json-plugin.js",
   "type": "module",
   "types": "dist/types/index.d.ts",
   "author": "Jor-ban",
