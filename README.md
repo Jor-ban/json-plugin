@@ -1,12 +1,7 @@
 # Tweakpane JSON extention
 Plugin template of an input binding for [Tweakpane][tweakpane].
 
-## Version compatibility
-
-| Tweakpane | plugin-template |
-| --------- | --------------- |
-| 4.x       | [main](https://github.com/tweakpane/plugin-template/tree/main) |
-| 3.x       | [v3](https://github.com/tweakpane/plugin-template/tree/v3) |
+<img src="docs/example.jpg" />
 
 ## Usage
 
@@ -14,8 +9,8 @@ Plugin template of an input binding for [Tweakpane][tweakpane].
 ### Browser
 ```html
 <script type="module">
-  import {Pane} as Tweakpane from './tweakpane.min.js';
-  import * as JsonPlugin from './tweakpane-plugin-template.min.js';
+  import {Pane} as Tweakpane from 'tweakpane';
+  import * as JsonPlugin from 'tweakpane-json-plugin';
 
   const pane = new Pane();
   pane.registerPlugin(JsonPlugin);
@@ -26,7 +21,7 @@ Plugin template of an input binding for [Tweakpane][tweakpane].
 ### Package
 ```js
 import {Pane} from 'tweakpane';
-import * as JsonPlugin from 'tweakpane-plugin-template';
+import * as JsonPlugin from 'tweakpane-json-plugin';
 
 const pane = new Pane();
 pane.registerPlugin(JsonPlugin);
@@ -36,7 +31,11 @@ pane.registerPlugin(JsonPlugin);
 ## Usage
 ```js
 const params = {
-  prop: 3,
+  prop: {
+    a: 1,
+    b: false, 
+    c: ["hello", "world!"]
+  }
 };
 
 // TODO: Update parameters for your plugin

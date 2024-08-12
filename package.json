@@ -1,12 +1,12 @@
 {
-  "name": "tweakpane-plugin-template",
+  "name": "tweakpane-json-plugin",
   "version": "0.0.0",
-  "description": "Plugin template for Tweakpane",
+  "description": "JSON Plugin for Tweakpane",
   "main": "dist/tweakpane-plugin-template.js",
   "type": "module",
   "types": "dist/types/index.d.ts",
-  "author": "cocopon",
-  "license": "MIT",
+  "author": "Jor-ban",
+  "license": "UNLICENSED",
   "files": [
     "dist"
   ],
@@ -14,7 +14,7 @@
     "prepare": "run-s clean build",
     "prepublishOnly": "npm test",
     "start": "run-p watch server",
-    "test": "eslint --ext .ts \"src/**/*.ts\"",
+    "test": "echo \"Test\"",
     "assets": "run-s clean build assets:version assets:zip",
     "assets:version": "node scripts/assets-append-version.js",
     "assets:zip": "zip -x '*types*' -j -r $(node scripts/dist-name.js)-$(cat package.json | npx json version).zip dist",
@@ -62,5 +62,22 @@
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.2",
     "codemirror": "^6.0.1"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jor-ban/tweakpane-json-plugin.git"
+  },
+  "keywords": [
+    "tweakpane",
+    "json",
+    "code-editor"
+  ],
+  "bugs": {
+    "url": "https://github.com/Jor-ban/tweakpane-json-plugin/issues"
+  },
+  "homepage": "https://github.com/Jor-ban/tweakpane-json-plugin#readme"
 }

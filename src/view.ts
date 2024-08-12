@@ -40,10 +40,10 @@ export class PluginView implements View {
 			background: #37383D !important;
 		}
 		.ͼc {
-			color: yellow !important;
+			color: inherit;
 		}
 		.ͼd {
-			color: lightblue !important;
+			color: #3293a8 !important;
 		}
 		.ͼe {
 			color: #f37272 !important;
@@ -52,16 +52,17 @@ export class PluginView implements View {
 		this.element.appendChild(styles)
 
 		this.editor = new EditorView({
-			doc: JSON.stringify(config.value.rawValue, null, 2),
+			doc: this.stringifyRelaxedJson_(config.value.rawValue),
 			extensions: [
 				basicSetup,
 				javascript(),
 				EditorView.updateListener.of((update) => {
 					const value = update.state.doc.toString()
 					try {
-						this.value_.rawValue = JSON.parse(value)
+						this.value_.rawValue = this.parseRelaxedJson_(value)
 						this.editor.contentDOM.style.border = 'none'
 					} catch (e) {
+						console.error(e)
 						this.editor.contentDOM.style.border = '2px solid red'
 					}
 				})
@@ -92,5 +93,31 @@ export class PluginView implements View {
 
 	private onValueChange_() {
 		this.refresh_();
+	}
+
+	private stringifyRelaxedJson_(value: any): string {
+		const cleaned = JSON.stringify(value, null, 2);
+
+		return cleaned.replace(/^[\t ]*"[^:\n\r]+(?<!\\)":/gm, function (match) {
+			return match.replace(/"/g, "");
+		});
+	}
+
+	private parseRelaxedJson_(value: string): any {
+		return JSON.parse(
+			value.replace(/:\s*"([^"]*)"/g, function(match, p1) {
+				return ': "' + p1.replace(/:/g, '@colon@') + '"';
+			})
+			// Replace ":" with "@colon@" if it's between single-quotes
+			.replace(/:\s*'([^']*)'/g, function(match, p1) {
+				return ': "' + p1.replace(/:/g, '@colon@') + '"';
+			})
+
+			// Add double-quotes around any tokens before the remaining ":"
+			.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*:/g, '"$2": ')
+
+			// Turn "@colon@" back into ":"
+			.replace(/@colon@/g, ':')
+		)
 	}
 }
