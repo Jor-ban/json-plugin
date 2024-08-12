@@ -10,8 +10,14 @@
 		import * as TweakpaneTemplatePlugin from '../dist/tweakpane-plugin-template.js';
 
 		const params = {
-			prop: 3,
+			prop: {
+				a: 1,
+				b: 2,
+			},
+			number: 1,
 		};
+
+		// #37383D
 
 		const pane = new Pane();
 		// Register plugin
@@ -19,10 +25,12 @@
 
 		// TODO: Update parameters for your plugin
 		pane.addBinding(params, 'prop', {
-			view: 'dots',
+			view: 'json',
 		}).on('change', (ev) => {
-			console.log(ev.value);
+			// console.log(ev.value);
 		});
+
+		pane.addBinding(params, 'number')
 
 		window.pane = pane;
 	</script>

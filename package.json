@@ -58,5 +58,10 @@
   },
   "peerDependencies": {
     "tweakpane": "^4.0.0-beta.2"
+  },
+  "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "codemirror": "^6.0.1"
   }
 }

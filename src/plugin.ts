@@ -12,10 +12,7 @@ import {
 import {PluginController} from './controller.js';
 
 export interface PluginInputParams extends BaseInputParams {
-	max?: number;
-	min?: number;
-	step?: number;
-	view: 'dots';
+	view: 'json';
 }
 
 // NOTE: JSDoc comments of `InputBindingPlugin` can be useful to know details about each property
@@ -26,11 +23,11 @@ export interface PluginInputParams extends BaseInputParams {
 // - P is the type of the parsed parameters
 //
 export const TemplateInputPlugin: InputBindingPlugin<
-	number,
-	number,
+	object,
+	object,
 	PluginInputParams
 > = createPlugin({
-	id: 'input-template',
+	id: 'json-editor',
 
 	// type: The plugin type.
 	// - 'input': Input binding
@@ -38,8 +35,8 @@ export const TemplateInputPlugin: InputBindingPlugin<
 	// - 'blade': Blade without binding
 	type: 'input',
 
-	accept(exValue: unknown, params: Record<string, unknown>) {
-		if (typeof exValue !== 'number') {
+	accept(exValue: any, params: Record<string, unknown>) {
+		if (typeof exValue !== 'object') {
 			// Return null to deny the user input
 			return null;
 		}
@@ -47,12 +44,9 @@ export const TemplateInputPlugin: InputBindingPlugin<
 		// Parse parameters object
 		const result = parseRecord<PluginInputParams>(params, (p) => ({
 			// `view` option may be useful to provide a custom control for primitive values
-			view: p.required.constant('dots'),
-
-			max: p.optional.number,
-			min: p.optional.number,
-			step: p.optional.number,
+			view: p.required.constant('json'),
 		}));
+
 		if (!result) {
 			return null;
 		}
@@ -66,30 +60,15 @@ export const TemplateInputPlugin: InputBindingPlugin<
 
 	binding: {
 		reader(_args) {
-			return (exValue: unknown): number => {
+			return (exValue: unknown): object => {
 				// Convert an external unknown value into the internal value
-				return typeof exValue === 'number' ? exValue : 0;
+				return typeof exValue === 'object' && exValue !== null ? exValue : {};
 			};
-		},
-
-		constraint(args) {
-			// Create a value constraint from the user input
-			const constraints = [];
-			// You can reuse existing functions of the default plugins
-			const cr = createRangeConstraint(args.params);
-			if (cr) {
-				constraints.push(cr);
-			}
-			const cs = createStepConstraint(args.params);
-			if (cs) {
-				constraints.push(cs);
-			}
-			// Use `CompositeConstraint` to combine multiple constraints
-			return new CompositeConstraint(constraints);
 		},
 
 		writer(_args) {
 			return (target: BindingTarget, inValue) => {
+				console.log({target, inValue})
 				// Use `target.write()` to write the primitive value to the target,
 				// or `target.writeProperty()` to write a property of the target
 				target.write(inValue);

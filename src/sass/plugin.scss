@@ -2,14 +2,11 @@
 @use '../../node_modules/@tweakpane/core/lib/sass/tp';
 
 // Additional style for the plugin
-.#{tp.$prefix}-tmpv {
+.#{tp.$prefix}-json-editorv {
 	// Extend a general input view style
 	@extend %tp-input;
 
 	cursor: pointer;
-	display: grid;
-	grid-template-columns: repeat(10, 1fr);
-	grid-template-rows: repeat(auto-fit, 10px);
 	height: calc(#{tp.cssVar('container-unit-size')} * 3);
 	overflow: hidden;
 	position: relative;
@@ -29,6 +26,18 @@
 		opacity: 0.5;
 		position: absolute;
 		right: 2px;
+	}
+	&_textarea {
+		color: tp.cssVar('input-fg');
+
+		font-size: 1em;
+		line-height: 1;
+		opacity: 1;
+		height: 100%;
+		width: 100%;
+		background-color: transparent;
+		border: none;
+		outline: none;
 	}
 	&_dot {
 		height: 10px;
