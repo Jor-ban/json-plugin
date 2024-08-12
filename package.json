@@ -1,6 +1,6 @@
 {
   "name": "tweakpane-json-plugin",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "JSON Plugin for Tweakpane",
   "main": "dist/tweakpane-json-plugin.js",
   "type": "module",
