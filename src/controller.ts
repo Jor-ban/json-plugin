@@ -34,8 +34,6 @@ export class PluginController implements Controller<PluginView> {
 			viewProps: this.viewProps,
 		});
 
-		console.log({el: this.view.element, value: this.value})
-
 		// You can use `PointerHandler` to handle pointer events in the same way as Tweakpane do
 	}
 }

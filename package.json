@@ -1,6 +1,6 @@
 {
   "name": "tweakpane-json-plugin",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "JSON Plugin for Tweakpane",
   "main": "dist/tweakpane-json-plugin.js",
   "type": "module",
@@ -61,7 +61,8 @@
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.2",
-    "codemirror": "^6.0.1"
+    "codemirror": "^6.0.1",
+    "remove": "^0.1.5"
   },
   "directories": {
     "doc": "docs",

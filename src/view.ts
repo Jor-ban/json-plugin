@@ -16,6 +16,7 @@ export class PluginView implements View {
 	public readonly element: HTMLElement;
 	private value_: Value<object>
 	private editor: EditorView
+	private editorInited: boolean = false
 
 	constructor(doc: Document, config: Config) {
 		// Create a root element for the plugin
@@ -57,6 +58,10 @@ export class PluginView implements View {
 				basicSetup,
 				javascript(),
 				EditorView.updateListener.of((update) => {
+					if(!this.editorInited || !update.docChanged) {
+						return;
+					}
+
 					const value = update.state.doc.toString()
 					try {
 						this.value_.rawValue = this.parseRelaxedJson_(value)
@@ -86,6 +91,7 @@ export class PluginView implements View {
 				parent.style.width = '100%'
 				this.element.style.height = 'max-content'
 			}
+			this.editorInited = true
 		})
 	}
 

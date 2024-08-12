@@ -39,7 +39,7 @@ const params = {
 };
 
 // TODO: Update parameters for your plugin
-pane.addInput(params, 'prop', {
+pane.addBinding(params, 'prop', {
   view: 'json',
 }).on('change', (ev) => {
   console.log(ev.value);
