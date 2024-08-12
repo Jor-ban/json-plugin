@@ -40,6 +40,12 @@ export class PluginView implements View {
 		.cm-activeLine {
 			background: #37383D !important;
 		}
+		.cm-line {
+			color: #BBBCC4 !important;
+		}
+		.cm-line > * {
+			color: #BBBCC4 !important;
+		}
 		.ͼc {
 			color: inherit;
 		}
