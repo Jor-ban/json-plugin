@@ -78,7 +78,6 @@ export class PluginView implements View {
 						this.value_.rawValue = this.parseRelaxedJson_(value)
 						this.editor.contentDOM.style.border = 'none'
 					} catch (e) {
-						console.error(e)
 						this.editor.contentDOM.style.border = '2px solid red'
 					}
 				})
